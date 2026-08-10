@@ -257,3 +257,11 @@ npm run typecheck
 ## License
 
 MIT
+
+## 👩‍💻 Author
+
+**Bethelhem Habtamu**
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Bethelhem%20Habtamu-blue?logo=linkedin)](https://www.linkedin.com/in/bethelhem-habtamu/)
+[![GitHub](https://img.shields.io/badge/GitHub-bettyhabtesh-black?logo=github)](https://github.com/bettyhabtesh)
+[![Portfolio](https://img.shields.io/badge/Portfolio-Visit-orange?logo=vercel)](https://bettyhabtesh.vercel.app)
