@@ -3,7 +3,7 @@ import type { CuteTimePickerTheme } from "../types";
 export const gildedNoir: CuteTimePickerTheme = {
   id: "gilded-noir",
   name: "Gilded Noir",
-  description: "Luxurious black lacquer with warm gold accents.",
+  description: "Luxurious black lacquer with warm gold accents that make up the Gilded Noir.",
   colors: {
     background: "linear-gradient(160deg, #0a0a0a 0%, #141210 45%, #1a1610 100%)",
     surface: "rgba(20, 18, 14, 0.94)",
