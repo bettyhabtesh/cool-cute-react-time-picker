@@ -237,6 +237,7 @@ export function CuteTimePicker({
           onSecondChange={showSeconds ? handleSecondChange : undefined}
           onHourCommit={handleHourCommit}
           disabled={disabled}
+          labelStyle={theme.labelStyle ?? "all"}
         />
 
         {showActions && (

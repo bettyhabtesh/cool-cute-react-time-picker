@@ -38,7 +38,7 @@ export function DemoApp() {
       <section>
         <h2 className="demo-section-title">Theme gallery</h2>
         <p className="demo-section-copy">
-          Eight built-in personalities. Same interaction model, wildly different vibes.
+          Eleven built-in personalities. Same interaction model, wildly different vibes.
         </p>
         <div className="demo-grid">
           {themeList.map((meta) => (

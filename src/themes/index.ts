@@ -7,6 +7,9 @@ import { violetDream } from "./violet-dream";
 import { latteGlow } from "./latte-glow";
 import { skyDaydream } from "./sky-daydream";
 import { twilightCity } from "./twilight-city";
+import { spiderman } from "./spiderman";
+import { cleanModern } from "./clean-modern";
+import { gildedNoir } from "./gilded-noir";
 
 export const builtInThemes: Record<BuiltInThemeName, CuteTimePickerTheme> = {
   "blush-bloom": blushBloom,
@@ -17,6 +20,9 @@ export const builtInThemes: Record<BuiltInThemeName, CuteTimePickerTheme> = {
   "latte-glow": latteGlow,
   "sky-daydream": skyDaydream,
   "twilight-city": twilightCity,
+  spiderman,
+  "clean-modern": cleanModern,
+  "gilded-noir": gildedNoir,
 };
 
 export const themeList: ThemeMeta[] = (
@@ -38,4 +44,7 @@ export {
   latteGlow,
   skyDaydream,
   twilightCity,
+  spiderman,
+  cleanModern,
+  gildedNoir,
 };

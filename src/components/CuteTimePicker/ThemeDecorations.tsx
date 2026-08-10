@@ -209,6 +209,74 @@ function Scallop() {
   return <div className="ctp-scallop" aria-hidden="true" />;
 }
 
+function Web() {
+  return (
+    <>
+      <svg
+        className="ctp-deco-svg ctp-web ctp-web-corner"
+        viewBox="0 0 120 120"
+        aria-hidden="true"
+        style={{ left: -6, top: -6, width: 108, height: 108 }}
+      >
+        <path
+          d="M8 8 L112 8 M8 8 L8 112 M8 8 L70 70 M8 8 L95 40 M8 8 L40 95"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.4"
+          opacity="0.55"
+        />
+        <path
+          d="M20 8 Q28 28 8 20 M40 8 Q52 42 8 40 M60 8 Q72 58 8 60 M80 8 Q90 72 8 80"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.2"
+          opacity="0.5"
+        />
+        <circle cx="8" cy="8" r="3" fill="currentColor" opacity="0.7" />
+      </svg>
+      <svg
+        className="ctp-deco-svg ctp-web ctp-web-corner"
+        viewBox="0 0 120 120"
+        aria-hidden="true"
+        style={{ right: -6, bottom: -4, width: 120, height: 120, transform: "rotate(180deg)" }}
+      >
+        <path
+          d="M8 8 L112 8 M8 8 L8 112 M8 8 L70 70 M8 8 L95 40 M8 8 L40 95"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.4"
+          opacity="0.5"
+        />
+        <path
+          d="M20 8 Q28 28 8 20 M40 8 Q52 42 8 40 M60 8 Q72 58 8 60 M80 8 Q90 72 8 80"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.2"
+          opacity="0.45"
+        />
+      </svg>
+      <svg
+        className="ctp-deco-svg ctp-spider"
+        viewBox="0 0 40 40"
+        aria-hidden="true"
+        style={{ right: 14, top: 12, width: 28, height: 28 }}
+      >
+        <ellipse cx="20" cy="18" rx="7" ry="8" fill="currentColor" />
+        <circle cx="20" cy="10" r="4.5" fill="currentColor" />
+        <path
+          d="M13 14 L4 8 M12 18 L3 18 M13 22 L5 28 M27 14 L36 8 M28 18 L37 18 M27 22 L35 28"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+        />
+        <circle cx="18" cy="9" r="0.9" fill="#60a5fa" />
+        <circle cx="22" cy="9" r="0.9" fill="#60a5fa" />
+      </svg>
+    </>
+  );
+}
+
 export const ThemeDecorations = memo(function ThemeDecorations({
   kinds,
   enabled,
@@ -231,6 +299,7 @@ export const ThemeDecorations = memo(function ThemeDecorations({
       {set.has("sparkles") && <Sparkles />}
       {set.has("bear") && <Bear />}
       {set.has("scallop") && <Scallop />}
+      {set.has("web") && <Web />}
     </div>
   );
 });

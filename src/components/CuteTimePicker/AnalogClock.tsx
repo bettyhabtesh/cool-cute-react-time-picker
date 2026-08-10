@@ -17,7 +17,7 @@ import {
   minuteToAngle,
   pointerToClockAngle,
 } from "../../utils/geometry";
-import type { MinuteStep, SelectionMode, TimeFormat } from "../../types";
+import type { ClockLabelStyle, MinuteStep, SelectionMode, TimeFormat } from "../../types";
 import { getClockLabels } from "../../utils/time";
 
 interface AnalogClockProps {
@@ -33,6 +33,7 @@ interface AnalogClockProps {
   onSecondChange?: (second: number) => void;
   onHourCommit?: () => void;
   disabled?: boolean;
+  labelStyle?: ClockLabelStyle;
 }
 
 export const AnalogClock = memo(function AnalogClock({
@@ -48,6 +49,7 @@ export const AnalogClock = memo(function AnalogClock({
   onSecondChange,
   onHourCommit,
   disabled,
+  labelStyle = "all",
 }: AnalogClockProps) {
   const clockRef = useRef<HTMLDivElement>(null);
   const [dragging, setDragging] = useState(false);
@@ -259,6 +261,7 @@ export const AnalogClock = memo(function AnalogClock({
           mode={activeMode}
           onSelect={handleNumberSelect}
           disabled={disabled}
+          labelStyle={labelStyle}
         />
       </div>
     </div>

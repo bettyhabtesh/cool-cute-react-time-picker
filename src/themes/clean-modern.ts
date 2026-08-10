@@ -1,0 +1,36 @@
+import type { CuteTimePickerTheme } from "../types";
+
+export const cleanModern: CuteTimePickerTheme = {
+  id: "clean-modern",
+  name: "Clean Modern",
+  description: "Minimal slate face with cardinal markers only — 12, 3, 6, 9.",
+  colors: {
+    background: "linear-gradient(180deg, #f8fafc 0%, #eef2f7 100%)",
+    surface: "rgba(255, 255, 255, 0.96)",
+    surfaceSecondary: "rgba(226, 232, 240, 0.85)",
+    primary: "#0f172a",
+    primaryHover: "#1e293b",
+    text: "#0f172a",
+    textSecondary: "#64748b",
+    border: "rgba(15, 23, 42, 0.1)",
+    clockBackground: "#ffffff",
+    clockBorder: "rgba(15, 23, 42, 0.12)",
+    hand: "#0f172a",
+    handle: "#0f172a",
+    buttonBackground: "#0f172a",
+    buttonText: "#ffffff",
+    shadow: "0 18px 40px rgba(15, 23, 42, 0.1)",
+    selectedNumber: "#0f172a",
+    selectedNumberText: "#ffffff",
+    accent: "#38bdf8",
+    glow: "rgba(15, 23, 42, 0.18)",
+  },
+  tokens: {
+    radius: "20px",
+    fontFamily: '"DM Sans", "Nunito", system-ui, sans-serif',
+    clockShadow: "0 12px 28px rgba(15, 23, 42, 0.08)",
+    buttonShadow: "0 8px 18px rgba(15, 23, 42, 0.12)",
+  },
+  decorations: [],
+  labelStyle: "cardinal",
+};

@@ -9,13 +9,19 @@ export type BuiltInThemeName =
   | "violet-dream"
   | "latte-glow"
   | "sky-daydream"
-  | "twilight-city";
+  | "twilight-city"
+  | "spiderman"
+  | "clean-modern"
+  | "gilded-noir";
 
 export type TimeFormat = "12h" | "24h";
 export type PickerSize = "sm" | "md" | "lg";
 export type SelectionMode = "hour" | "minute" | "second";
 export type MinuteStep = 1 | 5 | 10 | 15 | 30;
 export type Meridiem = "AM" | "PM";
+
+/** How hour (and related) face labels are rendered. */
+export type ClockLabelStyle = "all" | "cardinal";
 
 export interface ParsedTime {
   hours: number; // 0–23
@@ -63,7 +69,8 @@ export type DecorationKind =
   | "hearts"
   | "sparkles"
   | "bear"
-  | "scallop";
+  | "scallop"
+  | "web";
 
 export interface CuteTimePickerTheme {
   /** Unique theme id used for CSS class / data attributes. */
@@ -76,6 +83,12 @@ export interface CuteTimePickerTheme {
   tokens?: Partial<ThemeTokens>;
   /** Built-in decoration kinds to render. */
   decorations?: DecorationKind[];
+  /**
+   * Clock label presentation.
+   * - `all`: show every label as a digit
+   * - `cardinal`: hours show 12/3/6/9 (others as dashes); minutes show 00/15/30/45
+   */
+  labelStyle?: ClockLabelStyle;
   /** Optional CSS custom properties override map. */
   cssVars?: Record<string, string>;
 }

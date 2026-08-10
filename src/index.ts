@@ -14,6 +14,7 @@ export type {
   ParsedTime,
   DecorationKind,
   SelectionMode,
+  ClockLabelStyle,
 } from "./types";
 
 export {
@@ -28,6 +29,9 @@ export {
   latteGlow,
   skyDaydream,
   twilightCity,
+  spiderman,
+  cleanModern,
+  gildedNoir,
 } from "./themes";
 
 export {

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A beautiful, customizable and playful React time picker with multiple cute themes.",
   "license": "MIT",
-  "author": "",
+  "author": "Bethelhem Habtamu",
   "type": "module",
   "main": "./dist/cool-cute-react-time-picker.cjs",
   "module": "./dist/cool-cute-react-time-picker.js",
@@ -64,6 +64,6 @@
   ],
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/bettyhabtesh/cool-cute-react-time-picker"
   }
 }

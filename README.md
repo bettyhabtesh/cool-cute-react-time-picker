@@ -4,7 +4,7 @@ A beautiful, customizable and playful React time picker with multiple themes.
 
 **Time picking, but make it cute.**
 
-Analog clock selection, eight distinctive built-in themes, full TypeScript support, and a clean API you can drop into any React web app.
+Analog clock selection, eleven distinctive built-in themes, full TypeScript support, and a clean API you can drop into any React web app.
 
 > Web React only — not React Native.
 
@@ -61,6 +61,9 @@ Change personality with a single prop:
 <CuteTimePicker theme="latte-glow" />
 <CuteTimePicker theme="sky-daydream" />
 <CuteTimePicker theme="twilight-city" />
+<CuteTimePicker theme="spiderman" />
+<CuteTimePicker theme="clean-modern" />
+<CuteTimePicker theme="gilded-noir" />
 ```
 
 | Theme id | Name | Personality |
@@ -73,6 +76,9 @@ Change personality with a single prop:
 | `latte-glow` | Latte Glow | Warm coffee-shop beige |
 | `sky-daydream` | Sky Daydream | Bright sky, clouds, and sun |
 | `twilight-city` | Twilight City | Sunset skyline romance |
+| `spiderman` | Spiderman | Comic red & navy with web energy |
+| `clean-modern` | Clean Modern | Minimal slate face; 12/3/6/9 only |
+| `gilded-noir` | Gilded Noir | Luxurious black & gold |
 
 Theme metadata is also available as `themeList` / `builtInThemes`.
 
