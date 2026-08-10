@@ -6,7 +6,10 @@ A beautiful, customizable and playful React time picker with multiple themes.
 
 Analog clock selection, eleven distinctive built-in themes, full TypeScript support, and a clean API you can drop into any React web app.
 
-> Web React only — not React Native.
+![Preview 1](./src/Assets/p1.png)
+![Preview 2](./src/Assets/p2.png)
+![Preview 3](./src/Assets/p3.png)
+![Preview 4](./src/Assets/p4.png)
 
 ## Installation
 
