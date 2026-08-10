@@ -1,0 +1,9 @@
+node_modules
+dist
+demo-dist
+*.local
+.DS_Store
+coverage
+*.log
+.vite
+*.tgz

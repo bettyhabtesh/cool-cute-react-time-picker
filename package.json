@@ -1,0 +1,69 @@
+{
+  "name": "cool-cute-react-time-picker",
+  "version": "1.0.0",
+  "description": "A beautiful, customizable and playful React time picker with multiple cute themes.",
+  "license": "MIT",
+  "author": "",
+  "type": "module",
+  "main": "./dist/cool-cute-react-time-picker.cjs",
+  "module": "./dist/cool-cute-react-time-picker.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/cool-cute-react-time-picker.js",
+      "require": "./dist/cool-cute-react-time-picker.cjs"
+    },
+    "./styles.css": "./dist/cool-cute-react-time-picker.css"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -p tsconfig.build.json && vite build",
+    "build:demo": "vite build --mode demo",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.2.0",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "@vitejs/plugin-react": "^4.3.4",
+    "jsdom": "^26.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "typescript": "~5.7.2",
+    "vite": "^6.2.0",
+    "vite-plugin-dts": "^4.5.3",
+    "vitest": "^3.0.8"
+  },
+  "keywords": [
+    "react",
+    "time-picker",
+    "analog-clock",
+    "cute",
+    "themes",
+    "typescript",
+    "ui",
+    "component"
+  ],
+  "repository": {
+    "type": "git",
+    "url": ""
+  }
+}

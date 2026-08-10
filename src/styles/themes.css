@@ -1,0 +1,132 @@
+/* Theme-specific decoration accents */
+
+.ctp-root[data-theme="blush-bloom"] .ctp-flower {
+  fill: #f2a39a;
+  opacity: 0.85;
+}
+
+.ctp-root[data-theme="midnight-orbit"] .ctp-clock {
+  box-shadow:
+    var(--ctp-clock-shadow),
+    inset 0 0 40px rgba(167, 139, 250, 0.08);
+}
+
+.ctp-root[data-theme="midnight-orbit"] .ctp-hand-stem,
+.ctp-root[data-theme="violet-dream"] .ctp-hand-stem {
+  stroke-width: 1.35;
+  filter: drop-shadow(0 0 4px var(--ctp-glow));
+}
+
+.ctp-root[data-theme="sugar-cloud"] .ctp-clock {
+  border-width: 3px;
+  border-color: #f4a4b8;
+  border-style: solid;
+  box-shadow:
+    var(--ctp-clock-shadow),
+    0 0 0 6px rgba(244, 164, 184, 0.18),
+    0 0 0 10px rgba(244, 164, 184, 0.1);
+}
+
+.ctp-root[data-theme="sugar-cloud"] .ctp-scallop {
+  display: none;
+}
+
+.ctp-root[data-theme="violet-dream"] .ctp-clock-wrap::before {
+  content: "";
+  position: absolute;
+  inset: -14px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--ctp-glow), transparent 70%);
+  opacity: 0.55;
+  z-index: 0;
+  animation: ctp-float 4s ease-in-out infinite;
+}
+
+.ctp-root[data-theme="sky-daydream"] .ctp-cloud {
+  fill: #ffffff;
+  filter: drop-shadow(0 4px 8px rgba(70, 140, 190, 0.15));
+}
+
+.ctp-root[data-theme="twilight-city"] .ctp-city {
+  fill: #1a0f2e;
+  opacity: 0.9;
+}
+
+.ctp-root[data-theme="twilight-city"] .ctp-horizon-sun {
+  fill: #f0a060;
+  filter: drop-shadow(0 0 12px rgba(240, 160, 96, 0.7));
+}
+
+.ctp-deco-svg {
+  position: absolute;
+  overflow: visible;
+}
+
+.ctp-deco-bottom-left {
+  left: -8px;
+  bottom: -4px;
+  width: 110px;
+  height: 90px;
+  animation: ctp-sway 6s ease-in-out infinite;
+}
+
+.ctp-deco-bottom-right {
+  right: -8px;
+  bottom: -4px;
+  width: 110px;
+  height: 90px;
+  animation: ctp-sway 7s ease-in-out infinite reverse;
+}
+
+.ctp-deco-top-right {
+  right: 12px;
+  top: 10px;
+  width: 36px;
+  height: 36px;
+}
+
+.ctp-deco-top-left {
+  left: 10px;
+  top: 12px;
+  width: 40px;
+  height: 28px;
+}
+
+.ctp-star {
+  fill: currentColor;
+  color: var(--ctp-accent, #fff);
+  animation: ctp-twinkle 2.8s ease-in-out infinite;
+}
+
+.ctp-star:nth-child(2n) {
+  animation-delay: 0.7s;
+}
+
+.ctp-star:nth-child(3n) {
+  animation-delay: 1.4s;
+}
+
+.ctp-heart {
+  fill: #f4a4b8;
+  opacity: 0.7;
+  animation: ctp-float 3.5s ease-in-out infinite;
+}
+
+.ctp-bear {
+  position: absolute;
+  left: 50%;
+  bottom: 18%;
+  transform: translateX(-50%);
+  width: 28px;
+  height: 22px;
+  z-index: 2;
+  opacity: 0.9;
+}
+
+.ctp-city-strip {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 64px;
+}
