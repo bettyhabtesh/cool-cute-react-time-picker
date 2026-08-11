@@ -67,6 +67,9 @@ export function CuteTimePicker({
   showActions = true,
   cancelLabel = "Cancel",
   confirmLabel = "Done",
+  showTitle = true,
+  title = "Select Time",
+  handStyle: handStyleProp,
   disabled = false,
   minTime,
   maxTime,
@@ -184,7 +187,7 @@ export function CuteTimePicker({
       data-format={format}
       role="group"
       aria-label={ariaLabel}
-      aria-labelledby={titleId}
+      aria-labelledby={showTitle ? titleId : undefined}
       onKeyDown={onKeyDown}
     >
       <ThemeDecorations
@@ -192,11 +195,13 @@ export function CuteTimePicker({
         enabled={decorations}
       />
 
-      <div className="ctp-header">
-        <h2 className="ctp-title" id={titleId}>
-          Select Time
-        </h2>
-      </div>
+      {showTitle && (
+        <div className="ctp-header">
+          <h2 className="ctp-title" id={titleId}>
+            {title}
+          </h2>
+        </div>
+      )}
 
       <div className="ctp-body">
         <div className="ctp-top-row">
@@ -238,6 +243,7 @@ export function CuteTimePicker({
           onHourCommit={handleHourCommit}
           disabled={disabled}
           labelStyle={theme.labelStyle ?? "all"}
+          handStyle={handStyleProp ?? theme.handStyle ?? "round"}
         />
 
         {showActions && (

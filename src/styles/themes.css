@@ -142,6 +142,38 @@
   font-size: 0.85rem;
 }
 
+.ctp-root[data-theme="italic"] .ctp-title,
+.ctp-root[data-theme="italic"] .ctp-time-display,
+.ctp-root[data-theme="italic"] .ctp-number-cardinal,
+.ctp-root[data-theme="italic"] .ctp-mode-hint,
+.ctp-root[data-theme="italic"] .ctp-ampm-btn,
+.ctp-root[data-theme="italic"] .ctp-btn {
+  font-style: italic;
+}
+
+.ctp-root[data-theme="italic"] .ctp-title {
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+
+.ctp-root[data-theme="italic"] .ctp-time-display {
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.ctp-root[data-theme="italic"] .ctp-number-mark {
+  font-style: normal;
+  opacity: 0.55;
+}
+
+.ctp-root[data-theme="italic"] .ctp-clock {
+  border-width: 1.5px;
+}
+
+.ctp-root[data-theme="italic"] .ctp-btn-confirm {
+  font-weight: 600;
+}
+
 .ctp-deco-svg {
   position: absolute;
   overflow: visible;

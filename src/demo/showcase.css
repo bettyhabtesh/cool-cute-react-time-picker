@@ -1,0 +1,174 @@
+:root {
+  color-scheme: light;
+  --shot-ink: #1c1714;
+  --shot-muted: #6e6258;
+  --shot-line: rgba(50, 40, 30, 0.1);
+  --shot-card: rgba(255, 252, 248, 0.82);
+  --shot-accent: #c45c4a;
+  --shot-bg: #efe8df;
+  font-family: "Nunito", system-ui, sans-serif;
+  color: var(--shot-ink);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  background:
+    radial-gradient(ellipse 70% 50% at 0% 0%, rgba(255, 186, 160, 0.35), transparent 55%),
+    radial-gradient(ellipse 60% 45% at 100% 10%, rgba(160, 200, 180, 0.28), transparent 50%),
+    radial-gradient(ellipse 50% 40% at 50% 100%, rgba(212, 175, 55, 0.12), transparent 55%),
+    var(--shot-bg);
+}
+
+.shot-page {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 3rem;
+}
+
+.shot-hero {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.shot-brand {
+  margin: 0;
+  font-family: "Quicksand", "Nunito", sans-serif;
+  font-size: clamp(1.85rem, 4vw, 2.75rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  background: linear-gradient(120deg, #c45c4a 0%, #6b8f71 50%, #0f172a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.shot-hero h1 {
+  margin: 0.85rem 0 0;
+  font-size: clamp(1.35rem, 2.8vw, 1.85rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.shot-sub {
+  margin: 0.55rem auto 0;
+  max-width: 34rem;
+  color: var(--shot-muted);
+  font-weight: 600;
+  font-size: 1.02rem;
+}
+
+.shot-section {
+  margin-bottom: 2.25rem;
+}
+
+.shot-section-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.shot-section-head h2 {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.shot-section-head p {
+  margin: 0;
+  color: var(--shot-muted);
+  font-weight: 600;
+  font-size: 0.92rem;
+}
+
+.shot-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.shot-card {
+  background: var(--shot-card);
+  border: 1px solid var(--shot-line);
+  border-radius: 24px;
+  padding: 1rem 0.85rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 14px 32px rgba(60, 40, 25, 0.08);
+}
+
+.shot-card-meta {
+  width: 100%;
+}
+
+.shot-card-meta h3 {
+  margin: 0;
+  font-size: 0.92rem;
+  font-weight: 800;
+}
+
+.shot-time {
+  margin: 0;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  font-size: 0.95rem;
+  color: var(--shot-muted);
+}
+
+.shot-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.55rem;
+  margin-top: 0.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--shot-line);
+  color: var(--shot-muted);
+  font-weight: 700;
+  font-size: 0.88rem;
+}
+
+.shot-footer code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.8rem;
+  background: rgba(255, 255, 255, 0.7);
+  padding: 0.2rem 0.45rem;
+  border-radius: 8px;
+}
+
+@media (max-width: 1100px) {
+  .shot-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .shot-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* LinkedIn screenshot helper: constrain to a clean frame */
+@media (min-width: 1100px) {
+  .shot-page {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+}

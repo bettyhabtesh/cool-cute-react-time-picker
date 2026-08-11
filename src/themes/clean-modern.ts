@@ -33,4 +33,5 @@ export const cleanModern: CuteTimePickerTheme = {
   },
   decorations: [],
   labelStyle: "cardinal",
+  handStyle: "pointer",
 };

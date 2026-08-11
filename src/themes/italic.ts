@@ -1,0 +1,36 @@
+import type { CuteTimePickerTheme } from "../types";
+
+export const italic: CuteTimePickerTheme = {
+  id: "italic",
+  name: "Italic",
+  description: "Editorial ink-and-paper look with elegant italic type.",
+  colors: {
+    background: "linear-gradient(165deg, #faf7f2 0%, #f3ebe3 55%, #ebe2d8 100%)",
+    surface: "rgba(255, 252, 248, 0.95)",
+    surfaceSecondary: "rgba(90, 70, 55, 0.08)",
+    primary: "#5c4033",
+    primaryHover: "#3f2a22",
+    text: "#2c211c",
+    textSecondary: "#8a7366",
+    border: "rgba(92, 64, 51, 0.18)",
+    clockBackground: "#fffdf9",
+    clockBorder: "rgba(92, 64, 51, 0.2)",
+    hand: "#5c4033",
+    handle: "#5c4033",
+    buttonBackground: "#5c4033",
+    buttonText: "#fffaf5",
+    shadow: "0 18px 40px rgba(70, 50, 35, 0.12)",
+    selectedNumber: "#5c4033",
+    selectedNumberText: "#fffaf5",
+    accent: "#c4a484",
+    glow: "rgba(92, 64, 51, 0.22)",
+  },
+  tokens: {
+    radius: "22px",
+    fontFamily: '"Libre Baskerville", "Cormorant Garamond", Georgia, serif',
+    clockShadow: "0 12px 28px rgba(70, 50, 35, 0.1)",
+    buttonShadow: "0 8px 18px rgba(70, 50, 35, 0.14)",
+  },
+  decorations: [],
+  labelStyle: "cardinal",
+};

@@ -17,7 +17,7 @@ import {
   minuteToAngle,
   pointerToClockAngle,
 } from "../../utils/geometry";
-import type { ClockLabelStyle, MinuteStep, SelectionMode, TimeFormat } from "../../types";
+import type { ClockHandStyle, ClockLabelStyle, MinuteStep, SelectionMode, TimeFormat } from "../../types";
 import { getClockLabels } from "../../utils/time";
 
 interface AnalogClockProps {
@@ -34,6 +34,7 @@ interface AnalogClockProps {
   onHourCommit?: () => void;
   disabled?: boolean;
   labelStyle?: ClockLabelStyle;
+  handStyle?: ClockHandStyle;
 }
 
 export const AnalogClock = memo(function AnalogClock({
@@ -50,6 +51,7 @@ export const AnalogClock = memo(function AnalogClock({
   onHourCommit,
   disabled,
   labelStyle = "all",
+  handStyle = "round",
 }: AnalogClockProps) {
   const clockRef = useRef<HTMLDivElement>(null);
   const [dragging, setDragging] = useState(false);
@@ -210,6 +212,7 @@ export const AnalogClock = memo(function AnalogClock({
         ref={clockRef}
         className="ctp-clock"
         data-mode={mode}
+        data-hand-style={handStyle}
         role="slider"
         tabIndex={disabled ? -1 : 0}
         aria-valuemin={mode === "hour" ? 1 : 0}
@@ -253,7 +256,7 @@ export const AnalogClock = memo(function AnalogClock({
             aria-hidden="true"
           />
         ))}
-        <ClockHand angle={angle} dragging={dragging} />
+        <ClockHand angle={angle} dragging={dragging} handStyle={handStyle} />
         <span className="ctp-clock-center" aria-hidden="true" />
         <ClockNumbers
           labels={labels}

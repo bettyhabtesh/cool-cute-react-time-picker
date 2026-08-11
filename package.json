@@ -1,9 +1,12 @@
 {
   "name": "cool-cute-react-time-picker",
-  "version": "1.0.0",
-  "description": "A beautiful, customizable and playful React time picker with multiple cute themes.",
+  "version": "1.1.0",
+  "description": "A beautiful, themed analog React time picker with cute built-in styles, round/pointer/line hand tips, TypeScript support, and a clean customizable API.",
   "license": "MIT",
-  "author": "Bethelhem Habtamu",
+  "author": {
+    "name": "Bethelhem Habtamu",
+    "url": "https://github.com/bettyhabtesh"
+  },
   "type": "module",
   "main": "./dist/cool-cute-react-time-picker.cjs",
   "module": "./dist/cool-cute-react-time-picker.js",
@@ -31,7 +34,9 @@
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "pack:check": "npm run build && npm pack --dry-run",
+    "prepublishOnly": "npm run build"
   },
   "peerDependencies": {
     "react": ">=18.0.0",
@@ -54,16 +59,30 @@
   },
   "keywords": [
     "react",
+    "react-component",
     "time-picker",
+    "timepicker",
     "analog-clock",
+    "clock-hand",
     "cute",
     "themes",
     "typescript",
     "ui",
-    "component"
+    "datepicker",
+    "accessible"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/bettyhabtesh/cool-cute-react-time-picker"
+    "url": "git+https://github.com/bettyhabtesh/cool-cute-react-time-picker.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bettyhabtesh/cool-cute-react-time-picker/issues"
+  },
+  "homepage": "https://github.com/bettyhabtesh/cool-cute-react-time-picker#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=18"
   }
 }

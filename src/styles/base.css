@@ -270,6 +270,21 @@
   z-index: 5;
 }
 
+/* Pointer / line: no round highlight on the selected number. */
+.ctp-clock[data-hand-style="pointer"] .ctp-number[aria-selected="true"],
+.ctp-clock[data-hand-style="line"] .ctp-number[aria-selected="true"] {
+  background: transparent;
+  color: var(--ctp-primary);
+  transform: none;
+  box-shadow: none;
+  font-weight: 800;
+}
+
+.ctp-clock[data-hand-style="pointer"] .ctp-number:hover,
+.ctp-clock[data-hand-style="line"] .ctp-number:hover {
+  transform: none;
+}
+
 .ctp-number:focus-visible {
   outline: 2px solid var(--ctp-primary);
   outline-offset: 2px;
@@ -302,6 +317,20 @@
 .ctp-hand-stem {
   stroke: currentColor;
   transition: none;
+}
+
+.ctp-hand[data-hand-style="pointer"] .ctp-hand-stem,
+.ctp-hand[data-hand-style="line"] .ctp-hand-stem {
+  stroke-linecap: butt;
+}
+
+.ctp-hand[data-hand-style="pointer"] .ctp-hand-tip {
+  fill: currentColor;
+}
+
+.ctp-hand[data-hand-style="pointer"],
+.ctp-hand[data-hand-style="line"] {
+  filter: drop-shadow(0 0 4px var(--ctp-glow));
 }
 
 .ctp-handle {

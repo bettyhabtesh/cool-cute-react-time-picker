@@ -12,7 +12,8 @@ export type BuiltInThemeName =
   | "twilight-city"
   | "spiderman"
   | "clean-modern"
-  | "gilded-noir";
+  | "gilded-noir"
+  | "italic";
 
 export type TimeFormat = "12h" | "24h";
 export type PickerSize = "sm" | "md" | "lg";
@@ -22,6 +23,14 @@ export type Meridiem = "AM" | "PM";
 
 /** How hour (and related) face labels are rendered. */
 export type ClockLabelStyle = "all" | "cardinal";
+
+/**
+ * Clock hand tip style.
+ * - `round`: stem with a circular handle
+ * - `pointer`: slim stem with a pointed arrow tip
+ * - `line`: slim stem only — no circle, no arrow
+ */
+export type ClockHandStyle = "round" | "pointer" | "line";
 
 export interface ParsedTime {
   hours: number; // 0–23
@@ -89,6 +98,13 @@ export interface CuteTimePickerTheme {
    * - `cardinal`: hours show 12/3/6/9 (others as dashes); minutes show 00/15/30/45
    */
   labelStyle?: ClockLabelStyle;
+  /**
+   * Clock hand tip style.
+   * - `round`: stem with a circular handle (default)
+   * - `pointer`: slim stem with a pointed arrow tip
+   * - `line`: slim stem only — no circle, no arrow
+   */
+  handStyle?: ClockHandStyle;
   /** Optional CSS custom properties override map. */
   cssVars?: Record<string, string>;
 }
@@ -112,6 +128,19 @@ export interface CuteTimePickerProps {
   showActions?: boolean;
   cancelLabel?: string;
   confirmLabel?: string;
+
+  /** Show the header title. Default: true */
+  showTitle?: boolean;
+  /** Header title text. Default: `"Select Time"` */
+  title?: string;
+
+  /**
+   * Clock hand tip style. Overrides the theme when set.
+   * - `round`: circular handle (default)
+   * - `pointer`: pointed arrow tip
+   * - `line`: slim stem only — no circle, no arrow
+   */
+  handStyle?: ClockHandStyle;
 
   disabled?: boolean;
   minTime?: string;

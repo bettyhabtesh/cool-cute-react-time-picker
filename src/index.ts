@@ -15,6 +15,7 @@ export type {
   DecorationKind,
   SelectionMode,
   ClockLabelStyle,
+  ClockHandStyle,
 } from "./types";
 
 export {
@@ -32,6 +33,7 @@ export {
   spiderman,
   cleanModern,
   gildedNoir,
+  italic,
 } from "./themes";
 
 export {

@@ -1,15 +1,10 @@
 # Cool Cute React Time Picker
 
-A beautiful, customizable and playful React time picker with multiple themes.
+A beautiful, themed analog React time picker with cute built-in styles, TypeScript support, and a clean customizable API.
 
 **Time picking, but make it cute.**
 
-Analog clock selection, eleven distinctive built-in themes, full TypeScript support, and a clean API you can drop into any React web app.
-
-![Preview 1](./src/Assets/p1.png)
-![Preview 2](./src/Assets/p2.png)
-![Preview 3](./src/Assets/p3.png)
-![Preview 4](./src/Assets/p4.png)
+Analog clock selection, twelve distinctive built-in themes, full TypeScript support, and a polished API you can drop into any React web app.
 
 ## Installation
 
@@ -25,11 +20,23 @@ pnpm add cool-cute-react-time-picker
 yarn add cool-cute-react-time-picker
 ```
 
-Import styles once in your app entry (or next to the component):
+### CSS (required)
+
+Styles are **not** injected automatically. Import the package stylesheet once in your app entry (or beside the component):
 
 ```ts
 import "cool-cute-react-time-picker/styles.css";
 ```
+
+Without this import, the picker will render unstyled.
+
+Alternative path (same file):
+
+```ts
+import "cool-cute-react-time-picker/dist/cool-cute-react-time-picker.css";
+```
+
+Prefer the `styles.css` export — it is the stable public path.
 
 ## Basic usage
 
@@ -67,6 +74,7 @@ Change personality with a single prop:
 <CuteTimePicker theme="spiderman" />
 <CuteTimePicker theme="clean-modern" />
 <CuteTimePicker theme="gilded-noir" />
+<CuteTimePicker theme="italic" />
 ```
 
 | Theme id | Name | Personality |
@@ -82,6 +90,7 @@ Change personality with a single prop:
 | `spiderman` | Spiderman | Comic red & navy with web energy |
 | `clean-modern` | Clean Modern | Minimal slate face; 12/3/6/9 only |
 | `gilded-noir` | Gilded Noir | Luxurious black & gold |
+| `italic` | Italic | Editorial ink & paper with italic type |
 
 Theme metadata is also available as `themeList` / `builtInThemes`.
 
@@ -100,6 +109,9 @@ Theme metadata is also available as `themeList` / `builtInThemes`.
 | `showActions` | `boolean` | `true` | Show Cancel / Done |
 | `cancelLabel` | `string` | `"Cancel"` | Cancel button label |
 | `confirmLabel` | `string` | `"Done"` | Confirm button label |
+| `showTitle` | `boolean` | `true` | Show the header title |
+| `title` | `string` | `"Select Time"` | Header title text |
+| `handStyle` | `"round" \| "pointer" \| "line"` | `"round"` | Hand tip: round handle, arrow pointer, or slim line |
 | `disabled` | `boolean` | `false` | Disable interaction |
 | `minTime` | `string` | — | Minimum allowed time |
 | `maxTime` | `string` | — | Maximum allowed time |
@@ -245,6 +257,14 @@ npm run dev
 ```
 
 Open the local Vite demo to explore every theme and playground controls.
+
+### Hand styles showcase (screenshot page)
+
+With the demo server running, open:
+
+[http://localhost:5173/showcase.html](http://localhost:5173/showcase.html)
+
+A clean LinkedIn-ready layout comparing `handStyle="round"`, `"pointer"`, and `"line"` across themes.
 
 ## Development
 
