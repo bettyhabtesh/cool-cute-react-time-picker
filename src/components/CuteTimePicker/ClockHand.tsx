@@ -1,12 +1,25 @@
 import { memo } from "react";
 import type { ClockHandStyle } from "../../types";
 
+export type HandTipRing = "outer" | "inner";
+
 interface ClockHandProps {
   angle: number;
   dragging: boolean;
   /** Tip style. Default: `"round"`. */
   handStyle?: ClockHandStyle;
+  /**
+   * How far the tip sits from center.
+   * Outer = 1–12 / minute labels; inner = 13–23 / 00 on 24h faces.
+   */
+  tipRing?: HandTipRing;
 }
+
+/** Tip center Y in the 100×100 viewBox (center is 50). */
+const TIP_Y: Record<HandTipRing, number> = {
+  outer: 12,
+  inner: 26,
+};
 
 /**
  * Full-face SVG hand pivoted at the clock center.
@@ -16,12 +29,16 @@ export const ClockHand = memo(function ClockHand({
   angle,
   dragging,
   handStyle = "round",
+  tipRing = "outer",
 }: ClockHandProps) {
+  const tipY = TIP_Y[tipRing];
+
   return (
     <svg
       className="ctp-hand"
       data-dragging={dragging}
       data-hand-style={handStyle}
+      data-tip-ring={tipRing}
       viewBox="0 0 100 100"
       aria-hidden="true"
     >
@@ -33,12 +50,18 @@ export const ClockHand = memo(function ClockHand({
               x1="50"
               y1="50"
               x2="50"
-              y2="14"
+              y2={tipY}
               stroke="currentColor"
               strokeWidth="2.25"
               strokeLinecap="round"
             />
-            <circle className="ctp-handle" cx="50" cy="14" r="8.5" fill="currentColor" />
+            <circle
+              className="ctp-handle"
+              cx="50"
+              cy={tipY}
+              r="8.5"
+              fill="currentColor"
+            />
           </>
         )}
 
@@ -49,14 +72,14 @@ export const ClockHand = memo(function ClockHand({
               x1="50"
               y1="50"
               x2="50"
-              y2="24"
+              y2={tipY + 8}
               stroke="currentColor"
               strokeWidth="2"
               strokeLinecap="butt"
             />
             <polygon
               className="ctp-hand-tip"
-              points="50,16 46.5,25 53.5,25"
+              points={`50,${tipY} 46.5,${tipY + 9} 53.5,${tipY + 9}`}
               fill="currentColor"
             />
           </>
@@ -68,7 +91,7 @@ export const ClockHand = memo(function ClockHand({
             x1="50"
             y1="50"
             x2="50"
-            y2="18"
+            y2={tipY + 2}
             stroke="currentColor"
             strokeWidth="2"
             strokeLinecap="butt"

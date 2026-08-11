@@ -33,5 +33,4 @@ export const gildedNoir: CuteTimePickerTheme = {
     buttonShadow: "0 10px 24px rgba(212, 175, 55, 0.25)",
   },
   decorations: ["sparkles"],
-  labelStyle: "cardinal",
 };

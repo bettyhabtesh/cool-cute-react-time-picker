@@ -92,6 +92,23 @@ body {
   gap: 0.85rem;
 }
 
+.demo-card--selector {
+  overflow: visible;
+  align-items: stretch;
+}
+
+.demo-card--selector .ctp-field {
+  width: 100%;
+}
+
+.demo-card--selector .demo-pill {
+  align-self: center;
+}
+
+.demo-card--selector .demo-time-chip {
+  align-self: center;
+}
+
 .demo-card-header {
   width: 100%;
   text-align: left;

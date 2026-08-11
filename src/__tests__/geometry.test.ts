@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   angleToHour,
+  angleToHour24,
   angleToMinute,
   hourToAngle,
   minuteToAngle,
@@ -34,6 +35,14 @@ describe("hour / minute angles", () => {
     expect(angleToMinute(90)).toBe(15);
     expect(angleToMinute(33, 5)).toBe(5);
     expect(angleToMinute(36, 5)).toBe(5);
+  });
+
+  it("maps 24h outer/inner rings from angle", () => {
+    expect(angleToHour24(0, { isInnerRing: false })).toBe(12);
+    expect(angleToHour24(0, { isInnerRing: true })).toBe(0);
+    expect(angleToHour24(90, { isInnerRing: false })).toBe(3);
+    expect(angleToHour24(90, { isInnerRing: true })).toBe(15);
+    expect(angleToHour24(30, { isInnerRing: true })).toBe(13);
   });
 });
 

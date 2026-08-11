@@ -3,7 +3,7 @@ import type { CuteTimePickerTheme } from "../types";
 export const cleanModern: CuteTimePickerTheme = {
   id: "clean-modern",
   name: "Clean Modern",
-  description: "Minimal slate face with cardinal markers only 4 numbers on the clock",
+  description: "Minimal slate face with a clean pointer hand",
   colors: {
     background: "linear-gradient(180deg, #f8fafc 0%, #eef2f7 100%)",
     surface: "rgba(255, 255, 255, 0.96)",
@@ -32,6 +32,5 @@ export const cleanModern: CuteTimePickerTheme = {
     buttonShadow: "0 8px 18px rgba(15, 23, 42, 0.12)",
   },
   decorations: [],
-  labelStyle: "cardinal",
   handStyle: "pointer",
 };

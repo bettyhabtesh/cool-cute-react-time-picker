@@ -32,5 +32,4 @@ export const italic: CuteTimePickerTheme = {
     buttonShadow: "0 8px 18px rgba(70, 50, 35, 0.14)",
   },
   decorations: [],
-  labelStyle: "cardinal",
 };

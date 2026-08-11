@@ -4,12 +4,14 @@ import {
   themeList,
   type BuiltInThemeName,
   type ClockHandStyle,
+  type ClockLabelStyle,
   type MinuteStep,
   type PickerSize,
   type TimeFormat,
 } from "../index";
 
 type HandStyleOption = "theme" | ClockHandStyle;
+type LabelStyleOption = "theme" | ClockLabelStyle;
 
 export function DemoApp() {
   const [playgroundTheme, setPlaygroundTheme] =
@@ -19,6 +21,7 @@ export function DemoApp() {
   const [minuteStep, setMinuteStep] = useState<MinuteStep>(5);
   const [size, setSize] = useState<PickerSize>("md");
   const [handStyle, setHandStyle] = useState<HandStyleOption>("theme");
+  const [labelStyle, setLabelStyle] = useState<LabelStyleOption>("theme");
   const [disabled, setDisabled] = useState(false);
   const [decorations, setDecorations] = useState(true);
   const [showActions, setShowActions] = useState(true);
@@ -30,6 +33,7 @@ export function DemoApp() {
   const [secondsStep, setSecondsStep] = useState(1);
   const [minTime, setMinTime] = useState("");
   const [maxTime, setMaxTime] = useState("");
+  const [useSelector, setUseSelector] = useState(false);
   const [lastEvent, setLastEvent] = useState<string>("—");
 
   const [cardTimes, setCardTimes] = useState<Record<string, string>>(() =>
@@ -43,6 +47,8 @@ export function DemoApp() {
 
   const resolvedHandStyle =
     handStyle === "theme" ? undefined : handStyle;
+  const resolvedLabelStyle =
+    labelStyle === "theme" ? undefined : labelStyle;
 
   return (
     <div className="demo-page">
@@ -54,11 +60,12 @@ export function DemoApp() {
       <section>
         <h2 className="demo-section-title">Theme gallery</h2>
         <p className="demo-section-copy">
-          Twelve built-in personalities. Same interaction model, wildly different vibes.
+          Twelve themed selector fields — click any time to open the full picker
+          with that theme&apos;s hand style, labels, and decorations.
         </p>
         <div className="demo-grid">
           {themeList.map((meta) => (
-            <article key={meta.id} className="demo-card">
+            <article key={meta.id} className="demo-card demo-card--selector">
               <div className="demo-card-header">
                 <h3>{meta.name}</h3>
                 <p>{meta.description}</p>
@@ -69,13 +76,16 @@ export function DemoApp() {
                 onChange={(t) =>
                   setCardTimes((prev) => ({ ...prev, [meta.id]: t }))
                 }
+                selector
                 size="sm"
-                showActions={false}
+                showTitle={false}
+                showActions
                 format="12h"
                 minuteStep={5}
+                labelStyle="all"
               />
               <span className="demo-time-chip">
-                Selected <strong>{cardTimes[meta.id]}</strong>
+                Value <strong>{cardTimes[meta.id]}</strong>
               </span>
               <button
                 type="button"
@@ -132,6 +142,22 @@ export function DemoApp() {
                   <option value="round">Round</option>
                   <option value="pointer">Pointer (arrow)</option>
                   <option value="line">Line</option>
+                </select>
+              </label>
+            </div>
+
+            <div className="demo-control">
+              <label>
+                Label style
+                <select
+                  value={labelStyle}
+                  onChange={(e) =>
+                    setLabelStyle(e.target.value as LabelStyleOption)
+                  }
+                >
+                  <option value="theme">Theme default</option>
+                  <option value="all">Full numbers</option>
+                  <option value="cardinal">Major only (12/3/6/9)</option>
                 </select>
               </label>
             </div>
@@ -304,6 +330,15 @@ export function DemoApp() {
             <label className="demo-control demo-check">
               <input
                 type="checkbox"
+                checked={useSelector}
+                onChange={(e) => setUseSelector(e.target.checked)}
+              />
+              Time selector field
+            </label>
+
+            <label className="demo-control demo-check">
+              <input
+                type="checkbox"
                 checked={disabled}
                 onChange={(e) => setDisabled(e.target.checked)}
               />
@@ -347,6 +382,8 @@ export function DemoApp() {
               minuteStep={minuteStep}
               size={size}
               handStyle={resolvedHandStyle}
+              labelStyle={resolvedLabelStyle}
+              selector={useSelector}
               disabled={disabled}
               decorations={decorations}
               showActions={showActions}

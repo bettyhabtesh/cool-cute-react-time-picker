@@ -1,4 +1,5 @@
-.ctp-root {
+.ctp-root,
+.ctp-field {
   --ctp-width-sm: 260px;
   --ctp-width-md: 320px;
   --ctp-width-lg: 380px;
@@ -8,7 +9,9 @@
   --ctp-display-sm: 1.75rem;
   --ctp-display-md: 2.25rem;
   --ctp-display-lg: 2.75rem;
+}
 
+.ctp-root {
   box-sizing: border-box;
   position: relative;
   width: var(--ctp-width, var(--ctp-width-md));
@@ -31,19 +34,22 @@
   box-sizing: border-box;
 }
 
-.ctp-root[data-size="sm"] {
+.ctp-root[data-size="sm"],
+.ctp-field[data-size="sm"] {
   --ctp-width: var(--ctp-width-sm);
   --ctp-clock-size: var(--ctp-clock-sm);
   --ctp-display-size: var(--ctp-display-sm);
 }
 
-.ctp-root[data-size="md"] {
+.ctp-root[data-size="md"],
+.ctp-field[data-size="md"] {
   --ctp-width: var(--ctp-width-md);
   --ctp-clock-size: var(--ctp-clock-md);
   --ctp-display-size: var(--ctp-display-md);
 }
 
-.ctp-root[data-size="lg"] {
+.ctp-root[data-size="lg"],
+.ctp-field[data-size="lg"] {
   --ctp-width: var(--ctp-width-lg);
   --ctp-clock-size: var(--ctp-clock-lg);
   --ctp-display-size: var(--ctp-display-lg);
@@ -52,6 +58,88 @@
 .ctp-root[data-disabled="true"] {
   opacity: 0.62;
   pointer-events: none;
+}
+
+/* Compact time selector field + popover */
+.ctp-field {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.65rem;
+  width: var(--ctp-width, var(--ctp-width-md));
+  max-width: 100%;
+  font-family: var(--ctp-font-family);
+}
+
+.ctp-field[data-disabled="true"] {
+  opacity: 0.62;
+  pointer-events: none;
+}
+
+.ctp-selector {
+  appearance: none;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+  padding: 0.72rem 0.95rem;
+  text-align: left;
+  border-radius: calc(var(--ctp-radius, 16px) * 0.55);
+  border: 1px solid var(--ctp-border);
+  background: var(--ctp-surface);
+  color: var(--ctp-text);
+  font: inherit;
+  font-size: 0.98rem;
+  font-weight: 650;
+  letter-spacing: 0.01em;
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+  box-shadow: 0 1px 0 color-mix(in srgb, var(--ctp-text) 4%, transparent);
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    background-color 160ms ease;
+}
+
+.ctp-selector:hover {
+  border-color: color-mix(in srgb, var(--ctp-primary) 45%, var(--ctp-border));
+}
+
+.ctp-selector:focus-visible {
+  outline: 2px solid var(--ctp-primary);
+  outline-offset: 2px;
+}
+
+.ctp-selector[data-open="true"] {
+  border-color: color-mix(in srgb, var(--ctp-primary) 55%, var(--ctp-border));
+  box-shadow: 0 0 0 3px var(--ctp-glow);
+}
+
+.ctp-selector-value {
+  display: block;
+}
+
+.ctp-root--popover {
+  width: 100%;
+  z-index: 20;
+  animation: ctp-popover-in 160ms ease;
+}
+
+@keyframes ctp-popover-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ctp-root--popover {
+    animation: none;
+  }
 }
 
 .ctp-header {
@@ -130,6 +218,22 @@
 .ctp-time-part:focus-visible {
   outline: 2px solid var(--ctp-primary);
   outline-offset: 2px;
+}
+
+.ctp-time-input {
+  width: 2.1ch;
+  min-width: 2.1ch;
+  text-align: center;
+  box-sizing: content-box;
+  color: var(--ctp-primary);
+  background: var(--ctp-surface-secondary);
+  caret-color: var(--ctp-primary);
+}
+
+.ctp-time-input::-webkit-outer-spin-button,
+.ctp-time-input::-webkit-inner-spin-button {
+  appearance: none;
+  margin: 0;
 }
 
 .ctp-time-colon {
@@ -249,7 +353,7 @@
   font-size: 0.95rem;
   font-weight: 700;
   cursor: pointer;
-  z-index: 3;
+  z-index: 5;
   transition:
     background 160ms ease,
     color 160ms ease,
@@ -268,6 +372,33 @@
   transform: scale(1.12);
   box-shadow: 0 0 0 4px var(--ctp-glow), 0 6px 16px var(--ctp-glow);
   z-index: 5;
+}
+
+/* Round tip already draws the selection circle — keep digit readable on top. */
+.ctp-clock[data-hand-style="round"] .ctp-number[aria-selected="true"] {
+  background: transparent;
+  color: var(--ctp-selected-number-text);
+  box-shadow: none;
+  transform: none;
+  z-index: 5;
+}
+
+.ctp-number-inner {
+  width: 30px;
+  height: 30px;
+  margin-left: -15px;
+  margin-top: -15px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--ctp-text-secondary);
+}
+
+.ctp-number-outer {
+  font-size: 0.95rem;
+}
+
+.ctp-clock[data-format="24h"][data-mode="hour"] .ctp-number-inner[aria-selected="true"] {
+  color: var(--ctp-selected-number-text);
 }
 
 /* Pointer / line: no round highlight on the selected number. */

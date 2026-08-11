@@ -39,6 +39,7 @@ export {
 export {
   parseTime,
   formatTime,
+  formatDisplayTime,
   to12Hour,
   to24Hour,
   displayHour,

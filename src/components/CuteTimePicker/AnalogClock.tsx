@@ -7,23 +7,35 @@ import {
   type KeyboardEvent,
   type PointerEvent as ReactPointerEvent,
 } from "react";
-import { ClockHand } from "./ClockHand";
+import { ClockHand, type HandTipRing } from "./ClockHand";
 import { ClockNumbers } from "./ClockNumbers";
 import {
   angleToHour,
+  angleToHour24,
   angleToMinute,
+  distanceFromCenter,
   getClockCenter,
   hourToAngle,
   minuteToAngle,
   pointerToClockAngle,
 } from "../../utils/geometry";
-import type { ClockHandStyle, ClockLabelStyle, MinuteStep, SelectionMode, TimeFormat } from "../../types";
+import type {
+  ClockHandStyle,
+  ClockLabelStyle,
+  MinuteStep,
+  SelectionMode,
+  TimeFormat,
+} from "../../types";
 import { getClockLabels } from "../../utils/time";
+
+/** Fraction of clock radius: closer than this → inner 24h ring. */
+const INNER_RING_THRESHOLD = 0.62;
 
 interface AnalogClockProps {
   mode: SelectionMode;
   format: TimeFormat;
-  hourValue: number; // display hour (1-12 or 0-23)
+  /** 12h: 1–12 face hour. 24h: 0–23. */
+  hourValue: number;
   minuteValue: number;
   secondValue?: number;
   minuteStep: MinuteStep;
@@ -35,6 +47,10 @@ interface AnalogClockProps {
   disabled?: boolean;
   labelStyle?: ClockLabelStyle;
   handStyle?: ClockHandStyle;
+}
+
+function isInnerHour24(hour: number): boolean {
+  return hour === 0 || hour >= 13;
 }
 
 export const AnalogClock = memo(function AnalogClock({
@@ -57,6 +73,7 @@ export const AnalogClock = memo(function AnalogClock({
   const [dragging, setDragging] = useState(false);
   const dragMode = useRef(mode);
 
+  const is24HourFace = format === "24h" && mode === "hour";
   const activeMode = mode === "second" ? "minute" : mode;
   const labels = getClockLabels(activeMode, { format, minuteStep });
 
@@ -67,15 +84,12 @@ export const AnalogClock = memo(function AnalogClock({
         ? minuteToAngle(secondValue)
         : minuteToAngle(minuteValue);
 
+  const tipRing: HandTipRing =
+    is24HourFace && isInnerHour24(hourValue) ? "inner" : "outer";
+
   const selectedNumber =
     mode === "hour"
-      ? hourValue === 0
-        ? 12
-        : format === "24h" && hourValue > 12
-          ? hourValue - 12
-          : hourValue > 12
-            ? hourValue - 12
-            : hourValue
+      ? hourValue
       : mode === "second"
         ? secondValue
         : minuteValue;
@@ -89,21 +103,33 @@ export const AnalogClock = memo(function AnalogClock({
       const current = dragMode.current;
 
       if (current === "hour") {
-        const h = angleToHour(a);
-        onHourChange(h);
+        if (format === "24h") {
+          const half = el.getBoundingClientRect().width / 2;
+          const dist = distanceFromCenter(clientX, clientY, center.x, center.y);
+          const isInnerRing = dist < half * INNER_RING_THRESHOLD;
+          onHourChange(angleToHour24(a, { isInnerRing }));
+        } else {
+          onHourChange(angleToHour(a));
+        }
         if (commitHour) onHourCommit?.();
       } else if (current === "second") {
         onSecondChange?.(angleToMinute(a, secondsStep));
       } else {
-        onMinuteChange(angleToMinute(a, minuteStep));
+        onMinuteChange(angleToMinute(a, 1));
       }
     },
-    [minuteStep, secondsStep, onHourChange, onMinuteChange, onSecondChange, onHourCommit],
+    [
+      format,
+      secondsStep,
+      onHourChange,
+      onMinuteChange,
+      onSecondChange,
+      onHourCommit,
+    ],
   );
 
   const onPointerDown = (e: ReactPointerEvent<HTMLDivElement>) => {
     if (disabled) return;
-    // Ignore presses that originate on clock number buttons — they handle selection themselves.
     const target = e.target as HTMLElement | null;
     if (target?.closest(".ctp-number")) return;
     e.currentTarget.setPointerCapture(e.pointerId);
@@ -146,10 +172,14 @@ export const AnalogClock = memo(function AnalogClock({
     const bump = (delta: number) => {
       e.preventDefault();
       if (mode === "hour") {
-        let h = hourValue % 12;
-        if (hourValue === 12 || hourValue === 0) h = 0;
-        h = (h + delta + 12) % 12;
-        onHourChange(h === 0 ? 12 : h);
+        if (format === "24h") {
+          onHourChange((hourValue + delta + 24) % 24);
+        } else {
+          let h = hourValue % 12;
+          if (hourValue === 12 || hourValue === 0) h = 0;
+          h = (h + delta + 12) % 12;
+          onHourChange(h === 0 ? 12 : h);
+        }
       } else if (mode === "second") {
         const s = (secondValue + delta * step + 60) % 60;
         onSecondChange?.(s);
@@ -174,14 +204,15 @@ export const AnalogClock = memo(function AnalogClock({
         break;
       case "Home":
         e.preventDefault();
-        if (mode === "hour") onHourChange(12);
+        if (mode === "hour") onHourChange(format === "24h" ? 0 : 12);
         else if (mode === "second") onSecondChange?.(0);
         else onMinuteChange(0);
         break;
       case "End":
         e.preventDefault();
-        if (mode === "hour") onHourChange(6);
-        else if (mode === "second") onSecondChange?.(Math.max(0, 60 - secondsStep));
+        if (mode === "hour") onHourChange(format === "24h" ? 23 : 6);
+        else if (mode === "second")
+          onSecondChange?.(Math.max(0, 60 - secondsStep));
         else onMinuteChange(Math.max(0, 60 - minuteStep));
         break;
       case "Enter":
@@ -196,7 +227,6 @@ export const AnalogClock = memo(function AnalogClock({
     }
   };
 
-  // Sync drag mode when mode prop changes while not dragging
   useEffect(() => {
     if (!dragging) dragMode.current = mode;
   }, [mode, dragging]);
@@ -206,24 +236,31 @@ export const AnalogClock = memo(function AnalogClock({
       ? Array.from({ length: 12 }, (_, i) => i * 30)
       : [];
 
+  const ariaHourNow =
+    format === "24h"
+      ? hourValue
+      : hourValue === 0
+        ? 12
+        : hourValue > 12
+          ? hourValue - 12
+          : hourValue;
+
   return (
     <div className="ctp-clock-wrap">
       <div
         ref={clockRef}
         className="ctp-clock"
         data-mode={mode}
+        data-format={format}
         data-hand-style={handStyle}
+        data-tip-ring={tipRing}
         role="slider"
         tabIndex={disabled ? -1 : 0}
-        aria-valuemin={mode === "hour" ? 1 : 0}
-        aria-valuemax={mode === "hour" ? 12 : 59}
+        aria-valuemin={mode === "hour" ? (format === "24h" ? 0 : 1) : 0}
+        aria-valuemax={mode === "hour" ? (format === "24h" ? 23 : 12) : 59}
         aria-valuenow={
           mode === "hour"
-            ? hourValue === 0
-              ? 12
-              : hourValue > 12
-                ? hourValue - 12
-                : hourValue
+            ? ariaHourNow
             : mode === "second"
               ? secondValue
               : minuteValue
@@ -256,7 +293,12 @@ export const AnalogClock = memo(function AnalogClock({
             aria-hidden="true"
           />
         ))}
-        <ClockHand angle={angle} dragging={dragging} handStyle={handStyle} />
+        <ClockHand
+          angle={angle}
+          dragging={dragging}
+          handStyle={handStyle}
+          tipRing={tipRing}
+        />
         <span className="ctp-clock-center" aria-hidden="true" />
         <ClockNumbers
           labels={labels}
@@ -265,6 +307,7 @@ export const AnalogClock = memo(function AnalogClock({
           onSelect={handleNumberSelect}
           disabled={disabled}
           labelStyle={labelStyle}
+          format={format}
         />
       </div>
     </div>

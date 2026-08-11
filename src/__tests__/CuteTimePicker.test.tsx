@@ -38,8 +38,16 @@ describe("CuteTimePicker", () => {
         showActions={false}
       />,
     );
-    expect(screen.getByLabelText(/Hour 14/i)).toHaveTextContent("14");
-    expect(screen.getByLabelText(/Minute 15/i)).toHaveTextContent("15");
+    expect(
+      screen.getByLabelText(/Hour 14\. Click to type/i),
+    ).toHaveTextContent("14");
+    expect(
+      screen.getByLabelText(/Minute 15\. Click to type/i),
+    ).toHaveTextContent("15");
+    expect(screen.getByRole("button", { name: "Hour 14" })).toHaveAttribute(
+      "aria-selected",
+      "true",
+    );
   });
 
   it("supports uncontrolled defaultValue", () => {
@@ -82,6 +90,24 @@ describe("CuteTimePicker", () => {
     expect(screen.getByLabelText(/Hour selection clock/i)).toBeInTheDocument();
   });
 
+  it("lets users type hour and minute values", async () => {
+    const user = userEvent.setup();
+    const onChange = vi.fn();
+    render(<ControlledHarness initial="07:30" onChange={onChange} />);
+
+    await user.click(screen.getByLabelText(/Minute 30/i));
+    const minuteInput = screen.getByLabelText(/Type Minute 30/i);
+    await user.clear(minuteInput);
+    await user.type(minuteInput, "07{Enter}");
+    expect(onChange).toHaveBeenCalledWith("07:07");
+
+    await user.click(screen.getByLabelText(/Hour 07/i));
+    const hourInput = screen.getByLabelText(/Type Hour 07/i);
+    await user.clear(hourInput);
+    await user.type(hourInput, "09{Enter}");
+    expect(onChange).toHaveBeenCalledWith("09:07");
+  });
+
   it("calls onConfirm with current time", async () => {
     const user = userEvent.setup();
     const onConfirm = vi.fn();
@@ -110,5 +136,61 @@ describe("CuteTimePicker", () => {
     );
     expect(screen.queryByRole("button", { name: "AM" })).not.toBeInTheDocument();
     expect(screen.queryByRole("button", { name: "PM" })).not.toBeInTheDocument();
+  });
+
+  it("renders dual-ring hours in 24h mode", () => {
+    render(
+      <CuteTimePicker
+        value="00:00"
+        format="24h"
+        theme="latte-glow"
+        decorations={false}
+        showActions={false}
+      />,
+    );
+    expect(screen.getByRole("button", { name: "Hour 12" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Hour 00" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Hour 13" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Hour 23" })).toBeInTheDocument();
+  });
+
+  it("selects an inner-ring hour in 24h mode", async () => {
+    const user = userEvent.setup();
+    const onChange = vi.fn();
+    render(
+      <CuteTimePicker
+        value="08:00"
+        onChange={onChange}
+        format="24h"
+        theme="latte-glow"
+        decorations={false}
+        showActions={false}
+      />,
+    );
+
+    await user.click(screen.getByRole("button", { name: "Hour 15" }));
+    expect(onChange).toHaveBeenCalledWith("15:00");
+  });
+
+  it("opens the full picker from the compact selector", async () => {
+    const user = userEvent.setup();
+    render(
+      <CuteTimePicker
+        defaultValue="12:00"
+        selector
+        theme="gilded-noir"
+        decorations={false}
+        showActions
+        onCancel={() => undefined}
+      />,
+    );
+
+    expect(screen.queryByLabelText(/Hour selection clock/i)).not.toBeInTheDocument();
+    await user.click(
+      screen.getByRole("button", { name: /Selected time 12:00 PM/i }),
+    );
+    expect(screen.getByLabelText(/Hour selection clock/i)).toBeInTheDocument();
+    await user.click(screen.getByRole("button", { name: "Done" }));
+    expect(screen.queryByLabelText(/Hour selection clock/i)).not.toBeInTheDocument();
   });
 });

@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   clampTimeToRange,
   displayHour,
+  formatDisplayTime,
   formatTime,
   isTimeInRange,
   parseTime,
@@ -35,6 +36,23 @@ describe("formatTime", () => {
     expect(
       formatTime({ hours: 19, minutes: 30, seconds: 8 }, { showSeconds: true }),
     ).toBe("19:30:08");
+  });
+});
+
+describe("formatDisplayTime", () => {
+  it("formats 12h with meridiem", () => {
+    expect(
+      formatDisplayTime({ hours: 12, minutes: 0, seconds: 0 }, { format: "12h" }),
+    ).toBe("12:00 PM");
+    expect(
+      formatDisplayTime({ hours: 0, minutes: 5, seconds: 0 }, { format: "12h" }),
+    ).toBe("12:05 AM");
+  });
+
+  it("formats 24h as HH:mm", () => {
+    expect(
+      formatDisplayTime({ hours: 14, minutes: 15, seconds: 0 }, { format: "24h" }),
+    ).toBe("14:15");
   });
 });
 

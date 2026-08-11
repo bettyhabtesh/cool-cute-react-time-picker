@@ -88,7 +88,7 @@ Change personality with a single prop:
 | `sky-daydream` | Sky Daydream | Bright sky, clouds, and sun |
 | `twilight-city` | Twilight City | Sunset skyline romance |
 | `spiderman` | Spiderman | Comic red & navy with web energy |
-| `clean-modern` | Clean Modern | Minimal slate face; 12/3/6/9 only |
+| `clean-modern` | Clean Modern | Minimal slate face with a pointer hand |
 | `gilded-noir` | Gilded Noir | Luxurious black & gold |
 | `italic` | Italic | Editorial ink & paper with italic type |
 
@@ -105,13 +105,18 @@ Theme metadata is also available as `themeList` / `builtInThemes`.
 | `onCancel` | `() => void` | — | Fires on Cancel / Escape |
 | `theme` | `BuiltInThemeName \| CuteTimePickerTheme` | `"blush-bloom"` | Built-in id or custom theme object |
 | `format` | `"12h" \| "24h"` | `"12h"` | Clock format |
-| `minuteStep` | `1 \| 5 \| 10 \| 15 \| 30` | `5` | Minute snap interval |
+| `minuteStep` | `1 \| 5 \| 10 \| 15 \| 30` | `5` | Keyboard arrow step for minutes (clock face always shows every 5; drag/type allow any minute) |
 | `showActions` | `boolean` | `true` | Show Cancel / Done |
 | `cancelLabel` | `string` | `"Cancel"` | Cancel button label |
 | `confirmLabel` | `string` | `"Done"` | Confirm button label |
 | `showTitle` | `boolean` | `true` | Show the header title |
 | `title` | `string` | `"Select Time"` | Header title text |
 | `handStyle` | `"round" \| "pointer" \| "line"` | `"round"` | Hand tip: round handle, arrow pointer, or slim line |
+| `labelStyle` | `"all" \| "cardinal"` | `"all"` | Full clock digits, or major markers only (12/3/6/9 · 00/15/30/45) |
+| `selector` | `boolean` | `false` | Compact time field; click opens the full picker |
+| `open` | `boolean` | — | Controlled open state for `selector` mode |
+| `defaultOpen` | `boolean` | `false` | Initial open state for `selector` mode |
+| `onOpenChange` | `(open: boolean) => void` | — | Fires when the selector popover opens/closes |
 | `disabled` | `boolean` | `false` | Disable interaction |
 | `minTime` | `string` | — | Minimum allowed time |
 | `maxTime` | `string` | — | Maximum allowed time |
@@ -141,10 +146,51 @@ const [time, setTime] = useState("07:30");
 
 ```tsx
 <CuteTimePicker format="12h" /> // shows AM / PM
-<CuteTimePicker format="24h" /> // no AM / PM
+<CuteTimePicker format="24h" /> // dual-ring hour face (1–12 outer, 13–23 / 00 inner)
 ```
 
 Values are always emitted in 24-hour `HH:mm` (or `HH:mm:ss`) form.
+
+In **24h** hour mode the clock matches a Material-style dual ring: the hand tip shortens to the inner ring for `13–23` and `00`, and lengthens to the outer ring for `1–12`.
+
+## Clock label style
+
+By default every face label is shown. Pass `labelStyle="cardinal"` for a minimal face with only the major markers (hours `12/3/6/9`, minutes `00/15/30/45`); other positions render as dashes but stay clickable.
+
+```tsx
+<CuteTimePicker theme="clean-modern" labelStyle="all" />
+<CuteTimePicker theme="clean-modern" labelStyle="cardinal" />
+```
+
+Themes may set a default `labelStyle`; the prop always wins when provided.
+
+## Time selector field
+
+Render a compact themed field (like an input showing `12:00 PM`). Clicking it opens the full picker; **Done** keeps the time and closes, **Cancel** / Escape restores the previous value.
+
+```tsx
+<CuteTimePicker
+  selector
+  theme="gilded-noir"
+  value={time}
+  onChange={setTime}
+  format="12h"
+/>
+```
+
+Controlled open state:
+
+```tsx
+<CuteTimePicker
+  selector
+  open={open}
+  onOpenChange={setOpen}
+  value={time}
+  onChange={setTime}
+/>
+```
+
+The field uses the active theme colors (`--ctp-surface`, `--ctp-border`, `--ctp-text`), so dark themes look like a dark input and light themes stay light.
 
 ## Minute step
 
@@ -154,7 +200,13 @@ Values are always emitted in 24-hour `HH:mm` (or `HH:mm:ss`) form.
 <CuteTimePicker minuteStep={15} />
 ```
 
-After choosing an hour, the picker advances to minute selection automatically. Click the hour or minute digits in the display to jump modes.
+The clock face always shows minute labels every 5 minutes (`00`, `05`, `10`, …) so the UI stays readable. You can still pick **any** minute `0–59`:
+
+- Drag the hand — it points to the exact minute
+- Click the hour/minute digits and **type** a value, then Enter or blur to save
+- Arrow keys on the clock move by `minuteStep`
+
+After choosing an hour, the picker advances to minute selection automatically. Click the hour or minute digits in the display to edit or jump modes.
 
 ## Custom themes
 
@@ -258,7 +310,7 @@ npm run dev
 
 Open [http://localhost:5173](http://localhost:5173) for the full interactive demo:
 
-1. **Theme gallery** — all twelve built-in themes side by side  
+1. **Theme gallery** — each theme as a compact **time selector**; click to open the full picker  
 2. **Interactive playground** — tweak every public prop on a live picker
 
 ### Playground controls
@@ -267,6 +319,8 @@ Open [http://localhost:5173](http://localhost:5173) for the full interactive dem
 | --- | --- |
 | Theme | `theme` |
 | Hand style (theme default / round / pointer / line) | `handStyle` |
+| Label style (theme default / full / major only) | `labelStyle` |
+| Time selector field | `selector` |
 | Size | `size` |
 | Decorations | `decorations` |
 | Format (12h / 24h) | `format` |
@@ -285,7 +339,12 @@ With the demo server running, open:
 
 [http://localhost:5173/showcase.html](http://localhost:5173/showcase.html)
 
-A clean LinkedIn-ready layout comparing `handStyle="round"`, `"pointer"`, and `"line"` across themes.
+A layout covering:
+
+- `handStyle` — round / pointer / line  
+- `selector` — compact themed time fields  
+- `format="24h"` — dual-ring hour face  
+- `labelStyle` — full numbers vs major markers only  
 
 ## Development
 

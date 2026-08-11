@@ -56,6 +56,24 @@ export function pad2(n: number): string {
   return String(n).padStart(2, "0");
 }
 
+/** Human-readable label for the compact time selector (e.g. `12:00 PM` or `14:00`). */
+export function formatDisplayTime(
+  time: ParsedTime,
+  options: { format?: TimeFormat; showSeconds?: boolean } = {},
+): string {
+  const format = options.format ?? "12h";
+  const showSeconds = options.showSeconds ?? false;
+
+  if (format === "24h") {
+    return formatTime(time, { showSeconds });
+  }
+
+  const { hour12, meridiem } = to12Hour(time.hours);
+  let label = `${pad2(hour12)}:${pad2(time.minutes)}`;
+  if (showSeconds) label += `:${pad2(time.seconds)}`;
+  return `${label} ${meridiem}`;
+}
+
 export function clamp(n: number, min: number, max: number): number {
   return Math.min(max, Math.max(min, n));
 }
@@ -88,9 +106,10 @@ export function getClockLabels(
     return [12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
   }
 
-  // For minuteStep 1, show every 5 for readability; drag still selects any minute
-  const step = options.minuteStep === 1 ? 5 : options.minuteStep;
-  return getMinuteLabels(step as MinuteStep);
+  // Minute face always shows labels every 5 minutes for readability.
+  // Drag, keyboard (with minuteStep), and typed input can still select any minute 0–59;
+  // the hand points at the exact value.
+  return getMinuteLabels(5);
 }
 
 export function timeToMinutes(time: ParsedTime): number {

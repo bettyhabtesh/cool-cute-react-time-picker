@@ -142,6 +142,25 @@ export interface CuteTimePickerProps {
    */
   handStyle?: ClockHandStyle;
 
+  /**
+   * Clock face label density. Overrides the theme when set.
+   * - `all`: show every hour/minute label as a digit (default)
+   * - `cardinal`: only major markers (hours 12/3/6/9, minutes 00/15/30/45); others as dashes
+   */
+  labelStyle?: ClockLabelStyle;
+
+  /**
+   * When true, render a compact time field. Clicking it opens the full picker.
+   * Default: `false` (picker always visible).
+   */
+  selector?: boolean;
+  /** Controlled open state for `selector` mode. */
+  open?: boolean;
+  /** Uncontrolled initial open state for `selector` mode. Default: `false` */
+  defaultOpen?: boolean;
+  /** Fires when the selector popover opens or closes. */
+  onOpenChange?: (open: boolean) => void;
+
   disabled?: boolean;
   minTime?: string;
   maxTime?: string;

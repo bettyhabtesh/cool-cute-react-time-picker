@@ -113,14 +113,35 @@ body {
   box-shadow: 0 14px 32px rgba(60, 40, 25, 0.08);
 }
 
-.shot-card-meta {
-  width: 100%;
-}
-
 .shot-card-meta h3 {
   margin: 0;
   font-size: 0.92rem;
   font-weight: 800;
+}
+
+.shot-card-note {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--shot-muted);
+  letter-spacing: 0.02em;
+}
+
+.shot-card[data-selector="true"] {
+  overflow: visible;
+  align-items: stretch;
+}
+
+.shot-card[data-selector="true"] .ctp-field {
+  width: 100%;
+}
+
+.shot-card-meta {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.35rem 0.75rem;
 }
 
 .shot-time {
