@@ -308,7 +308,7 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:5173](http://localhost:5173) for the full interactive demo:
+Open [https://cool-cute-react-time-picker.vercel.app/](https://cool-cute-react-time-picker.vercel.app/) for the full interactive demo:
 
 1. **Theme gallery** — each theme as a compact **time selector**; click to open the full picker  
 2. **Interactive playground** — tweak every public prop on a live picker
@@ -337,7 +337,7 @@ The playground also surfaces `onChange`, `onConfirm`, and `onCancel` as a live �
 
 With the demo server running, open:
 
-[http://localhost:5173/showcase.html](http://localhost:5173/showcase.html)
+[https://cool-cute-react-time-picker.vercel.app/showcase.html](https://cool-cute-react-time-picker.vercel.app/showcase.html)
 
 A layout covering:
 
@@ -366,3 +366,4 @@ MIT
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Bethelhem%20Habtamu-blue?logo=linkedin)](https://www.linkedin.com/in/bethelhem-habtamu/)
 [![GitHub](https://img.shields.io/badge/GitHub-bettyhabtesh-black?logo=github)](https://github.com/bettyhabtesh)
 [![Portfolio](https://img.shields.io/badge/Portfolio-Visit-orange?logo=vercel)](https://bettyhabtesh.vercel.app)
+[![NPM]](https://www.npmjs.com/package/cool-cute-react-time-picker)
