@@ -1,6 +1,6 @@
 {
   "name": "cool-cute-react-time-picker",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "A beautiful, themed analog React time picker with cute built-in styles, round/pointer/line hand tips, TypeScript support, and a clean customizable API.",
   "license": "MIT",
   "author": {
