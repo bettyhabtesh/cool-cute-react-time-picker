@@ -3,10 +3,13 @@ import {
   CuteTimePicker,
   themeList,
   type BuiltInThemeName,
+  type ClockHandStyle,
   type MinuteStep,
   type PickerSize,
   type TimeFormat,
 } from "../index";
+
+type HandStyleOption = "theme" | ClockHandStyle;
 
 export function DemoApp() {
   const [playgroundTheme, setPlaygroundTheme] =
@@ -15,9 +18,19 @@ export function DemoApp() {
   const [format, setFormat] = useState<TimeFormat>("12h");
   const [minuteStep, setMinuteStep] = useState<MinuteStep>(5);
   const [size, setSize] = useState<PickerSize>("md");
+  const [handStyle, setHandStyle] = useState<HandStyleOption>("theme");
   const [disabled, setDisabled] = useState(false);
   const [decorations, setDecorations] = useState(true);
   const [showActions, setShowActions] = useState(true);
+  const [showTitle, setShowTitle] = useState(true);
+  const [title, setTitle] = useState("Select Time");
+  const [cancelLabel, setCancelLabel] = useState("Cancel");
+  const [confirmLabel, setConfirmLabel] = useState("Done");
+  const [showSeconds, setShowSeconds] = useState(false);
+  const [secondsStep, setSecondsStep] = useState(1);
+  const [minTime, setMinTime] = useState("");
+  const [maxTime, setMaxTime] = useState("");
+  const [lastEvent, setLastEvent] = useState<string>("—");
 
   const [cardTimes, setCardTimes] = useState<Record<string, string>>(() =>
     Object.fromEntries(themeList.map((t) => [t.id, "07:30"])),
@@ -27,6 +40,9 @@ export function DemoApp() {
     () => themeList.find((t) => t.id === playgroundTheme),
     [playgroundTheme],
   );
+
+  const resolvedHandStyle =
+    handStyle === "theme" ? undefined : handStyle;
 
   return (
     <div className="demo-page">
@@ -75,13 +91,16 @@ export function DemoApp() {
       </section>
 
       <section>
-        <h2 className="demo-section-title">Try all themes</h2>
+        <h2 className="demo-section-title">Interactive playground</h2>
         <p className="demo-section-copy">
-          Tweak format, step, size, and decorations on a live picker.
+          Try every public prop live — theme, hand style, format, labels, range,
+          seconds, and more.
         </p>
 
         <div className="demo-playground">
           <div className="demo-controls">
+            <p className="demo-control-group">Appearance</p>
+
             <div className="demo-control">
               <label>
                 Theme
@@ -99,6 +118,48 @@ export function DemoApp() {
                 </select>
               </label>
             </div>
+
+            <div className="demo-control">
+              <label>
+                Hand style
+                <select
+                  value={handStyle}
+                  onChange={(e) =>
+                    setHandStyle(e.target.value as HandStyleOption)
+                  }
+                >
+                  <option value="theme">Theme default</option>
+                  <option value="round">Round</option>
+                  <option value="pointer">Pointer (arrow)</option>
+                  <option value="line">Line</option>
+                </select>
+              </label>
+            </div>
+
+            <div className="demo-control">
+              <label>
+                Size
+                <select
+                  value={size}
+                  onChange={(e) => setSize(e.target.value as PickerSize)}
+                >
+                  <option value="sm">Small</option>
+                  <option value="md">Medium</option>
+                  <option value="lg">Large</option>
+                </select>
+              </label>
+            </div>
+
+            <label className="demo-control demo-check">
+              <input
+                type="checkbox"
+                checked={decorations}
+                onChange={(e) => setDecorations(e.target.checked)}
+              />
+              Decorations
+            </label>
+
+            <p className="demo-control-group">Time behavior</p>
 
             <div className="demo-control">
               <label>
@@ -131,37 +192,80 @@ export function DemoApp() {
               </label>
             </div>
 
+            <label className="demo-control demo-check">
+              <input
+                type="checkbox"
+                checked={showSeconds}
+                onChange={(e) => setShowSeconds(e.target.checked)}
+              />
+              Show seconds
+            </label>
+
+            {showSeconds && (
+              <div className="demo-control">
+                <label>
+                  Seconds step
+                  <select
+                    value={secondsStep}
+                    onChange={(e) => setSecondsStep(Number(e.target.value))}
+                  >
+                    {[1, 5, 10, 15, 30].map((s) => (
+                      <option key={s} value={s}>
+                        {s}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+              </div>
+            )}
+
             <div className="demo-control">
               <label>
-                Size
-                <select
-                  value={size}
-                  onChange={(e) => setSize(e.target.value as PickerSize)}
-                >
-                  <option value="sm">Small</option>
-                  <option value="md">Medium</option>
-                  <option value="lg">Large</option>
-                </select>
+                Min time
+                <input
+                  type="text"
+                  value={minTime}
+                  placeholder="e.g. 09:00"
+                  onChange={(e) => setMinTime(e.target.value)}
+                />
               </label>
             </div>
 
-            <label className="demo-control demo-check">
-              <input
-                type="checkbox"
-                checked={disabled}
-                onChange={(e) => setDisabled(e.target.checked)}
-              />
-              Disabled
-            </label>
+            <div className="demo-control">
+              <label>
+                Max time
+                <input
+                  type="text"
+                  value={maxTime}
+                  placeholder="e.g. 17:00"
+                  onChange={(e) => setMaxTime(e.target.value)}
+                />
+              </label>
+            </div>
+
+            <p className="demo-control-group">Chrome &amp; labels</p>
 
             <label className="demo-control demo-check">
               <input
                 type="checkbox"
-                checked={decorations}
-                onChange={(e) => setDecorations(e.target.checked)}
+                checked={showTitle}
+                onChange={(e) => setShowTitle(e.target.checked)}
               />
-              Decorations
+              Show title
             </label>
+
+            {showTitle && (
+              <div className="demo-control">
+                <label>
+                  Title
+                  <input
+                    type="text"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                  />
+                </label>
+              </div>
+            )}
 
             <label className="demo-control demo-check">
               <input
@@ -172,13 +276,48 @@ export function DemoApp() {
               Show actions
             </label>
 
+            {showActions && (
+              <>
+                <div className="demo-control">
+                  <label>
+                    Cancel label
+                    <input
+                      type="text"
+                      value={cancelLabel}
+                      onChange={(e) => setCancelLabel(e.target.value)}
+                    />
+                  </label>
+                </div>
+                <div className="demo-control">
+                  <label>
+                    Confirm label
+                    <input
+                      type="text"
+                      value={confirmLabel}
+                      onChange={(e) => setConfirmLabel(e.target.value)}
+                    />
+                  </label>
+                </div>
+              </>
+            )}
+
+            <label className="demo-control demo-check">
+              <input
+                type="checkbox"
+                checked={disabled}
+                onChange={(e) => setDisabled(e.target.checked)}
+              />
+              Disabled
+            </label>
+
             <div className="demo-time-chip" style={{ alignSelf: "flex-start" }}>
               Current time <strong>{playgroundTime}</strong>
             </div>
+            <div className="demo-time-chip" style={{ alignSelf: "flex-start" }}>
+              Last event <strong>{lastEvent}</strong>
+            </div>
             {activeMeta && (
-              <p style={{ margin: 0, color: "var(--demo-muted)", fontSize: "0.9rem" }}>
-                {activeMeta.description}
-              </p>
+              <p className="demo-meta-note">{activeMeta.description}</p>
             )}
           </div>
 
@@ -200,15 +339,30 @@ export function DemoApp() {
             <CuteTimePicker
               theme={playgroundTheme}
               value={playgroundTime}
-              onChange={setPlaygroundTime}
+              onChange={(t) => {
+                setPlaygroundTime(t);
+                setLastEvent(`onChange → ${t}`);
+              }}
               format={format}
               minuteStep={minuteStep}
               size={size}
+              handStyle={resolvedHandStyle}
               disabled={disabled}
               decorations={decorations}
               showActions={showActions}
-              onConfirm={(t) => setPlaygroundTime(t)}
-              onCancel={() => undefined}
+              showTitle={showTitle}
+              title={title}
+              cancelLabel={cancelLabel}
+              confirmLabel={confirmLabel}
+              showSeconds={showSeconds}
+              secondsStep={secondsStep}
+              minTime={minTime || undefined}
+              maxTime={maxTime || undefined}
+              onConfirm={(t) => {
+                setPlaygroundTime(t);
+                setLastEvent(`onConfirm → ${t}`);
+              }}
+              onCancel={() => setLastEvent("onCancel")}
             />
           </div>
         </div>
@@ -216,6 +370,8 @@ export function DemoApp() {
 
       <footer className="demo-footer">
         <code>npm install cool-cute-react-time-picker</code>
+        <span aria-hidden="true"> · </span>
+        <a href="/showcase.html">Hand styles showcase</a>
       </footer>
     </div>
   );

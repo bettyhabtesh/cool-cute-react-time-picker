@@ -13,9 +13,16 @@ export default defineConfig(({ mode }) => {
     return {
       plugins: [react()],
       root: ".",
+      base: "/",
       build: {
         outDir: "demo-dist",
         emptyOutDir: true,
+        rollupOptions: {
+          input: {
+            main: resolve(rootDir, "index.html"),
+            showcase: resolve(rootDir, "showcase.html"),
+          },
+        },
       },
     };
   }

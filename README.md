@@ -256,7 +256,28 @@ npm install
 npm run dev
 ```
 
-Open the local Vite demo to explore every theme and playground controls.
+Open [http://localhost:5173](http://localhost:5173) for the full interactive demo:
+
+1. **Theme gallery** — all twelve built-in themes side by side  
+2. **Interactive playground** — tweak every public prop on a live picker
+
+### Playground controls
+
+| Control | Prop |
+| --- | --- |
+| Theme | `theme` |
+| Hand style (theme default / round / pointer / line) | `handStyle` |
+| Size | `size` |
+| Decorations | `decorations` |
+| Format (12h / 24h) | `format` |
+| Minute step | `minuteStep` |
+| Show seconds + seconds step | `showSeconds`, `secondsStep` |
+| Min / max time | `minTime`, `maxTime` |
+| Show title + title text | `showTitle`, `title` |
+| Show actions + button labels | `showActions`, `cancelLabel`, `confirmLabel` |
+| Disabled | `disabled` |
+
+The playground also surfaces `onChange`, `onConfirm`, and `onCancel` as a live “Last event” readout.
 
 ### Hand styles showcase (screenshot page)
 
@@ -270,7 +291,8 @@ A clean LinkedIn-ready layout comparing `handStyle="round"`, `"pointer"`, and `"
 
 ```bash
 npm run test        # vitest
-npm run build       # ESM + CJS + types + CSS
+npm run build       # library: ESM + CJS + types + CSS
+npm run build:demo  # static demo for Vercel
 npm run typecheck
 ```
 

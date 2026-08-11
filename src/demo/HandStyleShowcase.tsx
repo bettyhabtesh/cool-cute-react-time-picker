@@ -105,6 +105,8 @@ export function HandStyleShowcase() {
       </section>
 
       <footer className="shot-footer">
+        <a href="/">← Full demo</a>
+        <span aria-hidden="true">·</span>
         <code>handStyle=&quot;round&quot;</code>
         <span aria-hidden="true">·</span>
         <code>handStyle=&quot;pointer&quot;</code>

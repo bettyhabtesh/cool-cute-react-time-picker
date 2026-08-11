@@ -32,6 +32,7 @@
     "build": "tsc -p tsconfig.build.json && vite build",
     "build:demo": "vite build --mode demo",
     "preview": "vite preview",
+    "preview:demo": "vite preview --mode demo",
     "test": "vitest run",
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit",
