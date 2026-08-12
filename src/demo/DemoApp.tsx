@@ -60,12 +60,12 @@ export function DemoApp() {
       <section>
         <h2 className="demo-section-title">Theme gallery</h2>
         <p className="demo-section-copy">
-          Twelve themed selector fields — click any time to open the full picker
-          with that theme&apos;s hand style, labels, and decorations.
+          Twelve themed pickers — each shows that theme&apos;s face, hand style,
+          labels, and decorations.
         </p>
         <div className="demo-grid">
           {themeList.map((meta) => (
-            <article key={meta.id} className="demo-card demo-card--selector">
+            <article key={meta.id} className="demo-card">
               <div className="demo-card-header">
                 <h3>{meta.name}</h3>
                 <p>{meta.description}</p>
@@ -76,7 +76,6 @@ export function DemoApp() {
                 onChange={(t) =>
                   setCardTimes((prev) => ({ ...prev, [meta.id]: t }))
                 }
-                selector
                 size="sm"
                 showTitle={false}
                 showActions
@@ -408,7 +407,7 @@ export function DemoApp() {
       <footer className="demo-footer">
         <code>npm install cool-cute-react-time-picker</code>
         <span aria-hidden="true"> · </span>
-        <a href="/showcase.html">Hand styles showcase</a>
+        <a href="/showcase.html">Hand styles</a>
       </footer>
     </div>
   );

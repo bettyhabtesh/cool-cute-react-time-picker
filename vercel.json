@@ -5,6 +5,8 @@
   "outputDirectory": "demo-dist",
   "installCommand": "npm install",
   "rewrites": [
-    { "source": "/showcase", "destination": "/showcase.html" }
+    { "source": "/showcase", "destination": "/showcase.html" },
+    { "source": "/stats", "destination": "/index.html" },
+    { "source": "/analytics", "destination": "/index.html" }
   ]
 }

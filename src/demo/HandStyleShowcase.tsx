@@ -6,6 +6,7 @@ import {
   type ClockLabelStyle,
   type TimeFormat,
 } from "../index";
+import { DemoNav } from "./DemoNav";
 
 interface ShowcaseCard {
   theme: BuiltInThemeName;
@@ -183,103 +184,113 @@ function PickerCard({
 
 export function HandStyleShowcase() {
   return (
-    <div className="shot-page">
-      <header className="shot-hero">
-        <p className="shot-brand">Cool Cute React Time Picker</p>
-        <h1>Hands, labels, selectors, and 24h.</h1>
-        <p className="shot-sub">
-          Every current API surface in one screenshot-ready page — tips, density,
-          compact fields, and dual-ring hours.
-        </p>
-      </header>
-
-      <section className="shot-section">
-        <div className="shot-section-head">
-          <h2>Round handle</h2>
-          <p>Circular tip · full face numbers · any minute via drag or type.</p>
-        </div>
-        <div className="shot-grid">
-          {ROUND_CARDS.map((card) => (
-            <PickerCard key={`round-${card.theme}`} {...card} />
-          ))}
-        </div>
-      </section>
-
-      <section className="shot-section">
-        <div className="shot-section-head">
-          <h2>Arrow pointer</h2>
-          <p>Pointed tip · no round number highlight · hand stops short of the rim.</p>
-        </div>
-        <div className="shot-grid">
-          {POINTER_CARDS.map((card) => (
-            <PickerCard key={`pointer-${card.theme}`} {...card} />
-          ))}
-        </div>
-      </section>
-
-      <section className="shot-section">
-        <div className="shot-section-head">
-          <h2>Line</h2>
-          <p>Stem only — no circle, no arrow.</p>
-        </div>
-        <div className="shot-grid">
-          {LINE_CARDS.map((card) => (
-            <PickerCard key={`line-${card.theme}`} {...card} />
-          ))}
-        </div>
-      </section>
-
-      <section className="shot-section">
-        <div className="shot-section-head">
-          <h2>Time selector field</h2>
-          <p>Compact themed field — click to open the full picker.</p>
-        </div>
-        <div className="shot-grid">
-          {SELECTOR_CARDS.map((card) => (
-            <PickerCard key={`selector-${card.theme}`} {...card} />
-          ))}
-        </div>
-      </section>
-
-      <section className="shot-section">
-        <div className="shot-section-head">
-          <h2>24-hour dual ring</h2>
-          <p>Outer 1–12, inner 13–23 / 00 — tip moves between rings.</p>
-        </div>
-        <div className="shot-grid">
-          {FORMAT_24H_CARDS.map((card) => (
-            <PickerCard key={`24h-${card.theme}-${card.time}`} {...card} />
-          ))}
-        </div>
-      </section>
-
-      <section className="shot-section">
-        <div className="shot-section-head">
-          <h2>Label density</h2>
-          <p>
-            Full digits or major markers only (`12/3/6/9` · `00/15/30/45`).
+    <>
+      <DemoNav current="showcase" />
+      <div className="shot-page">
+        <header className="shot-hero">
+          <p className="shot-brand">Cool Cute React Time Picker</p>
+          <h1>Hands, labels, selectors, and 24h.</h1>
+          <p className="shot-sub">
+            Every current API surface in one screenshot-ready page — tips,
+            density, compact fields, and dual-ring hours.
           </p>
-        </div>
-        <div className="shot-grid">
-          {LABEL_CARDS.map((card) => (
-            <PickerCard key={`label-${card.label}`} {...card} />
-          ))}
-        </div>
-      </section>
+        </header>
 
-      <footer className="shot-footer">
-        <a href="/">← Full demo</a>
-        <span aria-hidden="true">·</span>
-        <code>handStyle</code>
-        <span aria-hidden="true">·</span>
-        <code>labelStyle</code>
-        <span aria-hidden="true">·</span>
-        <code>selector</code>
-        <span aria-hidden="true">·</span>
-        <code>format=&quot;24h&quot;</code>
-        <span aria-hidden="true">·</span>
-        <span>npm i cool-cute-react-time-picker</span>
-      </footer>
-    </div>
+        <section className="shot-section">
+          <div className="shot-section-head">
+            <h2>Round handle</h2>
+            <p>
+              Circular tip · full face numbers · any minute via drag or type.
+            </p>
+          </div>
+          <div className="shot-grid">
+            {ROUND_CARDS.map((card) => (
+              <PickerCard key={`round-${card.theme}`} {...card} />
+            ))}
+          </div>
+        </section>
+
+        <section className="shot-section">
+          <div className="shot-section-head">
+            <h2>Arrow pointer</h2>
+            <p>
+              Pointed tip · no round number highlight · hand stops short of the
+              rim.
+            </p>
+          </div>
+          <div className="shot-grid">
+            {POINTER_CARDS.map((card) => (
+              <PickerCard key={`pointer-${card.theme}`} {...card} />
+            ))}
+          </div>
+        </section>
+
+        <section className="shot-section">
+          <div className="shot-section-head">
+            <h2>Line</h2>
+            <p>Stem only — no circle, no arrow.</p>
+          </div>
+          <div className="shot-grid">
+            {LINE_CARDS.map((card) => (
+              <PickerCard key={`line-${card.theme}`} {...card} />
+            ))}
+          </div>
+        </section>
+
+        <section className="shot-section">
+          <div className="shot-section-head">
+            <h2>Time selector field</h2>
+            <p>Compact themed field — click to open the full picker.</p>
+          </div>
+          <div className="shot-grid">
+            {SELECTOR_CARDS.map((card) => (
+              <PickerCard key={`selector-${card.theme}`} {...card} />
+            ))}
+          </div>
+        </section>
+
+        <section className="shot-section">
+          <div className="shot-section-head">
+            <h2>24-hour dual ring</h2>
+            <p>Outer 1–12, inner 13–23 / 00 — tip moves between rings.</p>
+          </div>
+          <div className="shot-grid">
+            {FORMAT_24H_CARDS.map((card) => (
+              <PickerCard key={`24h-${card.theme}-${card.time}`} {...card} />
+            ))}
+          </div>
+        </section>
+
+        <section className="shot-section">
+          <div className="shot-section-head">
+            <h2>Label density</h2>
+            <p>
+              Full digits or major markers only (`12/3/6/9` · `00/15/30/45`).
+            </p>
+          </div>
+          <div className="shot-grid">
+            {LABEL_CARDS.map((card) => (
+              <PickerCard key={`label-${card.label}`} {...card} />
+            ))}
+          </div>
+        </section>
+
+        <footer className="shot-footer">
+          <a href="/">← Full demo</a>
+          <span aria-hidden="true">·</span>
+          <a href="/stats">npm stats</a>
+          <span aria-hidden="true">·</span>
+          <code>handStyle</code>
+          <span aria-hidden="true">·</span>
+          <code>labelStyle</code>
+          <span aria-hidden="true">·</span>
+          <code>selector</code>
+          <span aria-hidden="true">·</span>
+          <code>format=&quot;24h&quot;</code>
+          <span aria-hidden="true">·</span>
+          <span>npm i cool-cute-react-time-picker</span>
+        </footer>
+      </div>
+    </>
   );
 }
